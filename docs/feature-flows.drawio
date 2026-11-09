@@ -1,0 +1,2727 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" pages="7">
+  
+  
+  <diagram id="cancel-order-flow" name="1 - Huy don">
+    
+    
+    <mxGraphModel dx="1400" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1150" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="c-title" value="Inventory Management UML" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="180" y="20" width="760" height="40"/>
+        </mxCell>
+        <mxCell id="inv-service-left" value="&lt;b&gt;InventoryService&lt;/b&gt;&lt;br/&gt;+ getInventory()&lt;br/&gt;+ checkAvailability()&lt;br/&gt;+ reserveStock()&lt;br/&gt;+ releaseStock()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9e8fb;strokeColor=#6c8ebf;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="100" width="210" height="150"/>
+        </mxCell>
+        <mxCell id="inv-service-center" value="&lt;b&gt;InventoryService&lt;/b&gt;&lt;br/&gt;- inventoryRepository: InventoryRepository&lt;br/&gt;- stockTransactionService: StockTransactionService&lt;br/&gt;- stockAlertService: StockAlertService&lt;br/&gt;+ updateStock(itemId, quantity)&lt;br/&gt;+ createStockTransaction(type, itemId, quantity)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="290" y="80" width="340" height="200"/>
+        </mxCell>
+        <mxCell id="stock-item" value="&lt;b&gt;StockItem&lt;/b&gt;&lt;br/&gt;- itemId: String&lt;br/&gt;- productName: String&lt;br/&gt;- quantityOnHand: int&lt;br/&gt;- minStockLevel: int&lt;br/&gt;+ adjustQuantity(delta)&lt;br/&gt;+ isLowStock()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="700" y="100" width="230" height="170"/>
+        </mxCell>
+        <mxCell id="stock-transaction" value="&lt;b&gt;StockTransaction&lt;/b&gt;&lt;br/&gt;- transactionId: String&lt;br/&gt;- type: String&lt;br/&gt;- itemId: String&lt;br/&gt;- quantity: int&lt;br/&gt;- status: String&lt;br/&gt;+ createTransaction()&lt;br/&gt;+ confirmTransaction()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="710" y="350" width="220" height="180"/>
+        </mxCell>
+        <mxCell id="stock-alert" value="&lt;b&gt;StockAlert&lt;/b&gt;&lt;br/&gt;- alertId: String&lt;br/&gt;- itemId: String&lt;br/&gt;- level: String&lt;br/&gt;- message: String&lt;br/&gt;+ triggerAlert()&lt;br/&gt;+ resolveAlert()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="560" y="600" width="210" height="170"/>
+        </mxCell>
+        <mxCell id="inventory-store" value="&lt;b&gt;InventoryStore&lt;/b&gt;&lt;br/&gt;+ save(item)&lt;br/&gt;+ load(itemId)&lt;br/&gt;+ getTransactions()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="120" y="340" width="210" height="120"/>
+        </mxCell>
+        <mxCell id="inventory-report" value="&lt;b&gt;InventoryReport&lt;/b&gt;&lt;br/&gt;+ generateSummary()&lt;br/&gt;+ exportCSV()&lt;br/&gt;+ getLowStockItems()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacing=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="280" y="620" width="200" height="130"/>
+        </mxCell>
+        <mxCell id="c-note" value="Template UML: service layer coordinates domain entities and storage, while supporting classes handle transactions and alerts." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="520" width="220" height="110"/>
+        </mxCell>
+        <mxCell id="ce1" value="uses" style="endArrow=block;html=1;" edge="1" parent="1" source="inv-service-center" target="stock-item">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce2" value="creates" style="endArrow=block;html=1;" edge="1" parent="1" source="inv-service-center" target="stock-transaction">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce3" value="monitors" style="endArrow=block;html=1;" edge="1" parent="1" source="stock-item" target="stock-alert">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce4" value="persists" style="endArrow=block;html=1;" edge="1" parent="1" source="inv-service-center" target="inventory-store">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce5" value="summarizes" style="endArrow=block;html=1;" edge="1" parent="1" source="inventory-store" target="inventory-report">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce6" value="updates" style="endArrow=block;html=1;" edge="1" parent="1" source="stock-item" target="stock-transaction">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ce7" value="checks" style="endArrow=block;html=1;" edge="1" parent="1" source="inv-service-left" target="inv-service-center">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="payment-flow" name="2 - Thanh toan">
+    
+    
+    <mxGraphModel dx="2243" dy="960" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1220" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="p-title" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" value="LÁT CẮT DỌC: THANH TOÁN ĐƠN HÀNG" vertex="1">
+          
+          
+          <mxGeometry height="40" width="560" x="260" y="20" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-input" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="YÊU CẦU THANH TOÁN&amp;#xa;Mã đơn + Số tiền + Hình thức" vertex="1">
+          
+          
+          <mxGeometry height="70" width="340" x="370" y="90" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-view" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="GIAO DIỆN (View)&amp;#xa;Tiếp nhận thông tin thanh toán" vertex="1">
+          
+          
+          <mxGeometry height="60" width="340" x="370" y="195" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-controller" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="BỘ ĐIỀU KHIỂN (Controller)&amp;#xa;Chuẩn hóa định dạng số tiền" vertex="1">
+          
+          
+          <mxGeometry height="65" width="340" x="370" y="290" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-request" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="DỮ LIỆU ĐẦU VÀO (Request)&amp;#xa;Gói gọn thông tin giao dịch" vertex="1">
+          
+          
+          <mxGeometry height="60" width="340" x="370" y="390" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-usecase" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="XỬ LÝ NGHIỆP VỤ (Use Case)&amp;#xa;Điều phối luồng thanh toán" vertex="1">
+          
+          
+          <mxGeometry height="75" width="400" x="340" y="490" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-domain" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="QUY TẮC LÕI (Entity)&amp;#xa;Đảm bảo đơn hợp lệ để thanh toán" vertex="1">
+          
+          
+          <mxGeometry height="85" width="285" x="55" y="625" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-policy" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="CHÍNH SÁCH BẢO MẬT&amp;#xa;Áp dụng quy tắc theo phương thức" vertex="1">
+          
+          
+          <mxGeometry height="85" width="290" x="405" y="620" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-decision" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Khách chọn phương thức nào?" vertex="1">
+          
+          
+          <mxGeometry height="100" width="180" x="790" y="615" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-cod" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="TIỀN MẶT (COD)&amp;#xa;- Không trừ tiền thẻ&amp;#xa;- In hóa đơn giấy" vertex="1">
+          
+          
+          <mxGeometry height="100" width="260" x="55" y="790" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-online" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Online&amp;#xa;SimulatedPaymentGatewayAdapter.charge()" vertex="1">
+          
+          
+          <mxGeometry height="75" width="300" x="395" y="790" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-success" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="NGÂN HÀNG CHẤP NHẬN&amp;#xa;- Cập nhật Đã Thanh Toán&amp;#xa;- Gửi hóa đơn điện tử" vertex="1">
+          
+          
+          <mxGeometry height="105" width="250" x="345" y="925" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-fail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="NGÂN HÀNG TỪ CHỐI/LỖI&amp;#xa;- Giữ nguyên trạng thái&amp;#xa;- Yêu cầu thử lại" vertex="1">
+          
+          
+          <mxGeometry height="105" width="250" x="645" y="925" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-response" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="KẾT QUẢ TRẢ VỀ (Response)&amp;#xa;Trạng thái giao dịch &amp; Thông báo" vertex="1">
+          
+          
+          <mxGeometry height="75" width="430" x="330" y="1070" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-presenter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="NGƯỜI TRÌNH BÀY (Presenter)&amp;#xa;Chuẩn bị giao diện &amp; Cập nhật màn hình" vertex="1">
+          
+          
+          <mxGeometry height="65" width="350" x="370" y="1170" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe1" edge="1" parent="1" source="p-input" style="endArrow=block;html=1;" target="p-view">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe2" edge="1" parent="1" source="p-view" style="endArrow=block;html=1;" target="p-controller">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe3" edge="1" parent="1" source="p-controller" style="endArrow=block;html=1;" target="p-request">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe4" edge="1" parent="1" source="p-request" style="endArrow=block;html=1;" target="p-usecase">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe5" edge="1" parent="1" source="p-usecase" style="endArrow=block;html=1;" target="p-domain" value="lấy đơn / kiểm tra / lưu">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe6" edge="1" parent="1" source="p-usecase" style="endArrow=block;html=1;" target="p-policy" value="resolveRule">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe7" edge="1" parent="1" source="p-usecase" style="endArrow=block;html=1;" target="p-decision">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe8" edge="1" parent="1" source="p-decision" style="endArrow=block;html=1;" target="p-cod" value="COD">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe9" edge="1" parent="1" source="p-decision" style="endArrow=block;html=1;" target="p-online" value="Online">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe10" edge="1" parent="1" source="p-online" style="endArrow=block;html=1;" target="p-success" value="Được chấp nhận">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe11" edge="1" parent="1" source="p-online" style="endArrow=block;html=1;" target="p-fail" value="Từ chối / lỗi">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe12" edge="1" parent="1" source="p-cod" style="endArrow=block;html=1;" target="p-response" value="COD / thành công / thất bại">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="260" y="1030"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe13" edge="1" parent="1" source="p-success" style="endArrow=block;html=1;" target="p-response">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe14" edge="1" parent="1" source="p-fail" style="endArrow=block;html=1;" target="p-response">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="pe15" edge="1" parent="1" source="p-response" style="endArrow=block;html=1;" target="p-presenter">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="p-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" value="Gateway, repository, hóa đơn, audit và policy đang là demo. Không trừ tiền thật; security policy hiện chỉ trả tên quy tắc." vertex="1">
+          
+          
+          <mxGeometry height="115" width="260" x="790" y="1070" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="cancel-order-uml" name="3 - UML lớp hủy đơn">
+    
+    
+    <mxGraphModel dx="1882" dy="805" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="d-title" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" value="UML LỚP - HỦY ĐƠN HÀNG" vertex="1">
+          
+          
+          <mxGeometry height="50" width="1000" x="300" y="15" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-presentation-group" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;verticalAlign=top;spacingTop=10;" value="TẦNG GIAO DIỆN (PRESENTATION)" vertex="1">
+          
+          
+          <mxGeometry height="570" width="440" x="30" y="80" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-application-group" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;verticalAlign=top;spacingTop=10;" value="TẦNG ỨNG DỤNG (APPLICATION) - ĐIỀU PHỐI" vertex="1">
+          
+          
+          <mxGeometry height="1070" width="610" x="490" y="80" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-domain-group" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;verticalAlign=top;spacingTop=10;" value="TẦNG LÕI NGHIỆP VỤ (DOMAIN)" vertex="1">
+          
+          
+          <mxGeometry height="430" width="450" x="1120" y="80" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-adapter-group" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;verticalAlign=top;spacingTop=10;" value="TẦNG BÊN NGOÀI (ADAPTERS) - KẾT NỐI" vertex="1">
+          
+          
+          <mxGeometry height="490" width="440" x="30" y="670" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-bootstrap-group" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#666666;fontStyle=1;verticalAlign=top;spacingTop=10;" value="ĐIỂM KHỞI TẠO (BOOTSTRAP)" vertex="1">
+          
+          
+          <mxGeometry height="220" width="450" x="1120" y="550" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-view" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderSwingView&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- controller: CancelOrderSwingController&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ CancelOrderSwingView()&lt;br/&gt;+ setController(controller)&lt;br/&gt;+ display(viewModel)&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="150" width="180" x="50" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-controller" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderSwingController&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- cancelOrder: CancelOrderInputBoundary&lt;br/&gt;- outputBoundary: CancelOrderOutputBoundary&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ cancelOrder(orderId, reason)&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="165" width="190" x="260" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-presenter" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderSwingPresenter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- view: CancelOrderView&lt;br/&gt;- eventPublisher: CancelOrderEventPublisher&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ present(response)&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="145" width="180" x="50" y="320" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-viewmodel" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderViewModel&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;successful: boolean&lt;br/&gt;orderId: String&lt;br/&gt;previousStatus: OrderStatus&lt;br/&gt;orderStatus: OrderStatus&lt;br/&gt;stockReleased: boolean&lt;br/&gt;auditLogged: boolean&lt;br/&gt;message: String&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="180" width="190" x="260" y="320" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-event" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderEventPublisher&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- observers: CopyOnWriteArrayList&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ addObserver(observer)&lt;br/&gt;+ removeObserver(observer)&lt;br/&gt;+ publish(viewModel)&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="150" width="180" x="50" y="490" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-observer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderObserver&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ onCancellationUpdated(viewModel)&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="125" width="190" x="260" y="500" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-input-boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderInputBoundary&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ execute(request): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="115" width="180" x="510" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-usecase" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;fontStyle=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderUseCase&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- orderRepository: OrderRepositoryPort&lt;br/&gt;- inventoryRepository: InventoryRepositoryPort&lt;br/&gt;- auditLogRepository: AuditLogRepositoryPort&lt;br/&gt;- outputBoundary: CancelOrderOutputBoundary&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ execute(request): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="260" width="210" x="710" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-output-boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderOutputBoundary&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ present(response): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="115" width="180" x="510" y="290" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-request" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderRequest&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;orderId: String&lt;br/&gt;reason: String&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="130" width="210" x="710" y="440" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-response" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;CancelOrderResponse&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;successful: boolean&lt;br/&gt;orderId: String&lt;br/&gt;previousStatus: OrderStatus&lt;br/&gt;orderStatus: OrderStatus&lt;br/&gt;stockReleased: boolean&lt;br/&gt;auditLogged: boolean&lt;br/&gt;message: String&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="220" width="210" x="710" y="600" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-order-port" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;OrderRepositoryPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ findById(id): Optional&amp;lt;Order&amp;gt;&lt;br/&gt;+ save(order): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="130" width="180" x="510" y="430" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-inventory-port" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;InventoryRepositoryPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ releaseStock(order): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="115" width="180" x="510" y="590" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-audit-port" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;AuditLogRepositoryPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ logAction(action, details): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="140" width="150" x="940" y="430" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-domain-order" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#d79b00;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«entity»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Order&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- id: String&lt;br/&gt;- status: OrderStatus&lt;br/&gt;- items: List&amp;lt;OrderItem&amp;gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ cancel(): void&lt;br/&gt;+ ensureCanBePaid(): void&lt;br/&gt;+ markPaid(): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="190" width="200" x="1150" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-domain-status" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#d79b00;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«enum»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;OrderStatus&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;PENDING&lt;br/&gt;CONFIRMED&lt;br/&gt;SHIPPED&lt;br/&gt;CANCELLED&lt;br/&gt;PROCESSING&lt;br/&gt;NOT_FOUND&lt;br/&gt;DELIVERED&lt;br/&gt;PAID&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="210" width="170" x="1380" y="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-adapter-repo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;DemoOrderRepository&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- orders: Map&amp;lt;String, Order&amp;gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ findById(id): Optional&amp;lt;Order&amp;gt;&lt;br/&gt;+ save(order): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="140" width="180" x="50" y="730" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-adapter-inventory" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ConsoleInventoryAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ releaseStock(order): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="125" width="190" x="260" y="730" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-adapter-audit" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ConsoleAuditLogAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ logAction(action, details): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="125" width="180" x="50" y="900" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-adapter-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" value="Replaceable demo mechanisms&amp;#xa;In-memory repository; console inventory and audit. No database or external inventory integration is wired." vertex="1">
+          
+          
+          <mxGeometry height="150" width="190" x="260" y="890" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-bootstrap" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#666666;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CancelOrderDemoApplication&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ main(args): void&lt;/div&gt;" vertex="1">
+          
+          
+          <mxGeometry height="130" width="400" x="1150" y="580" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="d-design-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" value="DESIGN VÀ ĐIỂM MỞ RỘNG&amp;#xa;DDD: Order giữ invariant hủy đơn; Application điều phối. SRP: Controller, UseCase, Domain, Presenter và adapters tách trách nhiệm. DIP/OCP: UseCase phụ thuộc port; thay repository, inventory, audit ở composition root. ISP: port tách theo năng lực; LSP yêu cầu adapter tuân hợp đồng. Patterns: Ports and Adapters, Presenter, Observer. Request / Response tường minh; có thể mở rộng bằng adapter lưu trữ và tồn kho thật." vertex="1">
+          
+          
+          <mxGeometry height="240" width="580" x="510" y="870" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de1" edge="1" parent="1" source="d-controller" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-input-boundary" value="gọi hàm (calls)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de2" edge="1" parent="1" source="d-usecase" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-input-boundary" value="triển khai (implements)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de3" edge="1" parent="1" source="d-presenter" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-output-boundary" value="triển khai (implements)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de4" edge="1" parent="1" source="d-controller" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-output-boundary" value="nếu form lỗi → báo thất bại">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de5" edge="1" parent="1" source="d-controller" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-request" value="tạo mới (creates)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de6" edge="1" parent="1" source="d-usecase" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-response" value="trả về kết quả">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de7" edge="1" parent="1" source="d-usecase" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-order-port" value="phụ thuộc vào">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de8" edge="1" parent="1" source="d-usecase" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-inventory-port" value="phụ thuộc vào">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de9" edge="1" parent="1" source="d-usecase" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-audit-port" value="phụ thuộc vào">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de10" edge="1" parent="1" source="d-usecase" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-domain-order" value="thực thi quy tắc lõi">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de11" edge="1" parent="1" source="d-domain-order" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-domain-status" value="status type">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de12" edge="1" parent="1" source="d-adapter-repo" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-order-port" value="triển khai (implements)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de13" edge="1" parent="1" source="d-adapter-inventory" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-inventory-port" value="triển khai (implements)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de14" edge="1" parent="1" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" value="triển khai (implements)">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <mxPoint x="250" y="882.5" as="sourcePoint"/>
+            
+            
+            <mxPoint x="1035" y="489.9999999999998" as="targetPoint"/>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de15" edge="1" parent="1" source="d-presenter" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-view" value="display">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de16" edge="1" parent="1" source="d-presenter" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-viewmodel" value="chuyển đổi thành">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de17" edge="1" parent="1" source="d-presenter" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-event" value="phát sự kiện (publish)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de18" edge="1" parent="1" source="d-event" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-observer" value="thông báo tới">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="de19" edge="1" parent="1" source="d-bootstrap" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" target="d-usecase" value="tiêm phụ thuộc (DI)">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="cancel-order-sequence" name="4 - UML trình tự hủy đơn">
+    
+    
+    <mxGraphModel dx="2050" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2050" pageHeight="1200" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="s-title" value="UML TRÌNH TỰ - HỦY ĐƠN (REQUEST / RESPONSE)" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="480" y="15" width="1080" height="45" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-subtitle" value="Mô tả luồng chạy từ Giao diện (trái) xuyên suốt vào Lõi nghiệp vụ (giữa) và Cơ sở dữ liệu (phải)." style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="410" y="58" width="1220" height="28" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-customer" value="Khách hàng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="35" y="105" width="145" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-view" value="CancelOrderSwingView" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="225" y="105" width="170" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-controller" value="CancelOrderSwingController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="440" y="105" width="190" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-usecase" value="CancelOrderUseCase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="670" y="105" width="180" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-repository" value="OrderRepositoryPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="890" y="105" width="175" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-order" value="Order" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1105" y="105" width="145" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-inventory" value="InventoryRepositoryPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1290" y="105" width="190" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-audit" value="AuditLogRepositoryPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1520" y="105" width="190" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-presenter" value="Presenter / View / EventPublisher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1750" y="105" width="240" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl1" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="107" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl2" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="310" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl3" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="535" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl4" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="760" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl5" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="977" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl6" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1177" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl7" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1385" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl8" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1615" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl9" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1870" y="163" width="1" height="690" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se1" value="cancelOrder(orderId, reason)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-customer" target="s-view">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="205" y="205"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se2" value="cancelOrder(...)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-view" target="s-controller">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="415" y="255"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se3" value="trim + validate; create Request" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-controller" target="s-usecase">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="645" y="305"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se4" value="findById(orderId)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-repository">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="870" y="355"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se5" value="Order or not found" style="endArrow=open;html=1;dashed=1;fontSize=10;" edge="1" parent="1" source="s-repository" target="s-usecase">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="870" y="400"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se6" value="read previousStatus" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-order">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1070" y="450"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se7" value="cancel(); set CANCELLED or throw" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-order">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1070" y="500"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se8" value="releaseStock(order)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-inventory">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1270" y="555"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se9" value="save(order)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-repository">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="870" y="605"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se10" value="logAction(CANCEL_ORDER, reason)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-audit">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1500" y="655"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se11" value="present(success, statuses, flags, message)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-usecase" target="s-presenter">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1725" y="710"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se12" value="ViewModel → display + publish to observers" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-presenter" target="s-view">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="320" y="770"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-response-note" value="RESPONSE THÀNH CÔNG&amp;#xa;CancelOrderResponse: successful=true; previousStatus=PENDING hoặc PROCESSING; orderStatus=CANCELLED; stockReleased=true; auditLogged=true; message. Presenter đổi thành CancelOrderViewModel để hiển thị và phát event." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="55" y="890" width="850" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-error-note" value="NHÁNH BỊ TỪ CHỐI / LỖI&amp;#xa;Thiếu mã đơn hoặc lý do: Controller trả response thất bại, không gọi UseCase. Không tìm thấy đơn hoặc Order.cancel() từ chối trạng thái: UseCase bắt RuntimeException, thử ghi audit lỗi rồi trả successful=false. Lỗi ở inventory, save hoặc audit cũng đi vào nhánh lỗi; không có rollback giao dịch được cài đặt." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="950" y="890" width="1040" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-demo-note" value="Adapter hiện là demo: repository trong bộ nhớ; inventory và audit ghi console. Lý do được lưu trong nội dung audit; Order.cancel() không nhận tham số reason." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="55" y="1040" width="1935" height="75" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="payment-vertical-slice" name="5 - Lát cắt dọc thanh toán">
+    
+    
+    <mxGraphModel dx="1500" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1400" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="v-title" value="LÁT CẮT DỌC - THANH TOÁN ĐƠN HÀNG" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="390" y="20" width="720" height="45" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-scope" value="Mô hình một chiều: Giao diện → Request → Core Nghiệp vụ → Response → Cập nhật Giao diện" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="300" y="62" width="900" height="30" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-input" value="YÊU CẦU TỪ KHÁCH HÀNG&amp;#xa;Mã đơn + Số tiền + Hình thức" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="540" y="115" width="420" height="72" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-view" value="GIAO DIỆN (View)&amp;#xa;Nhận hình thức và số tiền từ người dùng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="540" y="220" width="420" height="66" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-controller" value="BỘ ĐIỀU KHIỂN (Controller)&amp;#xa;Chuẩn hóa dữ liệu, chặn số tiền sai định dạng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="540" y="320" width="420" height="72" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-request" value="DỮ LIỆU ĐẦU VÀO (Request)&amp;#xa;Gói gọn Mã đơn, Số tiền, Hình thức" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="540" y="425" width="420" height="65" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-usecase" value="XỬ LÝ NGHIỆP VỤ (Use Case)&amp;#xa;Kiểm tra → Tìm đơn → Áp dụng chính sách bảo mật → Thanh toán" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="490" y="525" width="520" height="82" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-order" value="QUY TẮC LÕI &amp; CSDL&amp;#xa;Đảm bảo đơn có thể thanh toán. Cập nhật khi xong." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="85" y="665" width="385" height="86" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-policy" value="CHÍNH SÁCH BẢO MẬT&amp;#xa;Áp dụng quy tắc theo phương thức" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="560" y="665" width="385" height="86" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-branch" value="Khách chọn phương thức nào?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1070" y="655" width="300" height="105" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-cod" value="TIỀN MẶT (COD)&amp;#xa;- Không gọi Gateway&amp;#xa;- In hóa đơn giấy&amp;#xa;- Giao dịch chờ thu tiền" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="55" y="830" width="400" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-gateway" value="TRỰC TUYẾN (Online)&amp;#xa;Gọi Cổng thanh toán (Gateway)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="555" y="830" width="400" height="88" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-success" value="NGÂN HÀNG CHẤP NHẬN&amp;#xa;- Đơn hàng: Đã Thanh Toán&amp;#xa;- Xuất hóa đơn điện tử, ghi log" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="445" y="970" width="400" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-failure" value="NGÂN HÀNG TỪ CHỐI&amp;#xa;- Đơn hàng: Giữ nguyên&amp;#xa;- Báo lỗi và yêu cầu thử lại" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="905" y="970" width="400" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-response" value="KẾT QUẢ (Response)&amp;#xa;Gói gọn trạng thái thành công/lỗi và thông báo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="430" y="1135" width="490" height="82" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-presenter" value="PaymentSwingPresenter&amp;#xa;PaymentResponse → PaymentViewModel → View + PaymentEventPublisher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="470" y="1250" width="410" height="75" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="v-note" value="LƯU Ý THỰC THI&amp;#xa;Repository, gateway, invoice và audit hiện là demo. Gateway mô phỏng; PaymentSecurityPolicyAdapter chỉ chọn tên quy tắc, không thực thi mã hóa hay 3D Secure." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1015" y="1150" width="410" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve1" style="endArrow=block;html=1;" edge="1" parent="1" source="v-input" target="v-view">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve2" style="endArrow=block;html=1;" edge="1" parent="1" source="v-view" target="v-controller">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve3" style="endArrow=block;html=1;" edge="1" parent="1" source="v-controller" target="v-request">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve4" style="endArrow=block;html=1;" edge="1" parent="1" source="v-request" target="v-usecase">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve5" value="findById / luật đơn" style="endArrow=block;html=1;fontSize=11;" edge="1" parent="1" source="v-usecase" target="v-order">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve6" value="resolveRule" style="endArrow=block;html=1;fontSize=11;" edge="1" parent="1" source="v-usecase" target="v-policy">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve7" style="endArrow=block;html=1;" edge="1" parent="1" source="v-usecase" target="v-branch">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve8" value="COD" style="endArrow=block;html=1;" edge="1" parent="1" source="v-branch" target="v-cod">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve9" value="Online" style="endArrow=block;html=1;" edge="1" parent="1" source="v-branch" target="v-gateway">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve10" value="accepted" style="endArrow=block;html=1;" edge="1" parent="1" source="v-gateway" target="v-success">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve11" value="rejected / exception" style="endArrow=block;html=1;" edge="1" parent="1" source="v-gateway" target="v-failure">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve12" value="PENDING" style="endArrow=block;html=1;" edge="1" parent="1" source="v-cod" target="v-response">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="270" y="1098"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve13" value="SUCCEEDED" style="endArrow=block;html=1;" edge="1" parent="1" source="v-success" target="v-response">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve14" value="FAILED" style="endArrow=block;html=1;" edge="1" parent="1" source="v-failure" target="v-response">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ve15" style="endArrow=block;html=1;" edge="1" parent="1" source="v-response" target="v-presenter">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="payment-class-design" name="6 - UML lớp thanh toán">
+    
+    
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="c-title" value="UML LỚP - TRÁCH NHIỆM, POLICY VÀ HƯỚNG PHỤ THUỘC" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="300" y="15" width="1000" height="50" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-present-label" value="TẦNG GIAO DIỆN (PRESENTATION)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="30" y="80" width="440" height="570" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-app-label" value="TẦNG ỨNG DỤNG (APPLICATION) - ĐIỀU PHỐI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="490" y="80" width="610" height="1070" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-domain-label" value="TẦNG LÕI NGHIỆP VỤ (DOMAIN)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1120" y="80" width="450" height="430" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-adapter-label" value="TẦNG BÊN NGOÀI (ADAPTERS) - KẾT NỐI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="30" y="670" width="440" height="490" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-bootstrap-label" value="ĐIỂM KHỞI TẠO (BOOTSTRAP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#666666;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1120" y="550" width="450" height="220" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-view" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentSwingView&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- controller: PaymentSwingController&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ setController(controller)&lt;br/&gt;+ display(viewModel): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="150" width="180" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-controller" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentSwingController&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- paymentUseCase: PaymentInputBoundary&lt;br/&gt;- outputBoundary: PaymentOutputBoundary&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ submitPayment(orderId, amountText, method): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="260" y="150" width="190" height="165" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-presenter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentSwingPresenter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- view: PaymentView&lt;br/&gt;- eventPublisher: PaymentEventPublisher&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ present(response): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="320" width="180" height="145" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-vm" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentViewModel&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;status: PaymentTransactionStatus&lt;br/&gt;orderId: String&lt;br/&gt;amount: BigDecimal&lt;br/&gt;paymentMethod: PaymentMethod&lt;br/&gt;message: String&lt;br/&gt;invoiceAction: String&lt;br/&gt;securityRule: String&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="260" y="320" width="190" height="180" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-publisher" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentEventPublisher&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- observers: CopyOnWriteArrayList&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ addObserver(observer)&lt;br/&gt;+ removeObserver(observer)&lt;br/&gt;+ publish(viewModel)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="490" width="180" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-input-boundary" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentInputBoundary&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ execute(request): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="150" width="180" height="115" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-interactor" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentInteractor&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- orderRepository: OrderRepositoryPort&lt;br/&gt;- paymentGateway: PaymentGatewayPort&lt;br/&gt;- auditLogRepository: AuditLogRepositoryPort&lt;br/&gt;- invoicePort: InvoicePort&lt;br/&gt;- securityPolicy: PaymentSecurityPolicy&lt;br/&gt;- outputBoundary: PaymentOutputBoundary&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ execute(request): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="710" y="150" width="210" height="300" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-output-boundary" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentOutputBoundary&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ present(response): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="290" width="180" height="115" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-request" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentRequest&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;orderId: String&lt;br/&gt;amount: BigDecimal&lt;br/&gt;paymentMethod: PaymentMethod&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="710" y="480" width="210" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-response" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«record»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentResponse&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;status: PaymentTransactionStatus&lt;br/&gt;orderId: String&lt;br/&gt;amount: BigDecimal&lt;br/&gt;paymentMethod: PaymentMethod&lt;br/&gt;message: String&lt;br/&gt;invoiceAction: String&lt;br/&gt;securityRule: String&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="710" y="660" width="210" height="220" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-policy" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentSecurityPolicy&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ resolveRule(method): String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="940" y="150" width="150" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-order-port" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;OrderRepositoryPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ findById(id): Optional&amp;lt;Order&amp;gt;&lt;br/&gt;+ save(order): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="430" width="180" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-gateway-port" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentGatewayPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ charge(id, amount, method): boolean&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="940" y="310" width="150" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-invoice-port" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;InvoicePort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ printPaperInvoice(id, amount): void&lt;br/&gt;+ sendElectronicInvoice(id, amount): void&lt;br/&gt;+ requestPaymentRetry(id): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="590" width="200" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-audit-port" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«interface»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;AuditLogRepositoryPort&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ logAction(action, details): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#b85450;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="940" y="470" width="150" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-order" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«entity»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;Order&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- id: String&lt;br/&gt;- status: OrderStatus&lt;br/&gt;- items: List&amp;lt;OrderItem&amp;gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ ensureCanBePaid(): void&lt;br/&gt;+ markPaid(): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1150" y="150" width="200" height="180" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-method" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«enum»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentMethod&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;CASH_ON_DELIVERY&lt;br/&gt;MOMO&lt;br/&gt;BANK_TRANSFER&lt;br/&gt;QR_TRANSFER&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ getDisplayName(): String&lt;br/&gt;+ fromDisplayName(name): PaymentMethod&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1380" y="150" width="170" height="200" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-status" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;i&gt;«enum»&lt;/i&gt;&lt;br/&gt;&lt;b&gt;PaymentTransactionStatus&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;SUCCEEDED&lt;br/&gt;PENDING&lt;br/&gt;FAILED&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1200" y="380" width="300" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-repo-adapter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;DemoOrderRepository&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;- orders: Map&amp;lt;String, Order&amp;gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ findById(id): Optional&amp;lt;Order&amp;gt;&lt;br/&gt;+ save(order): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="730" width="180" height="140" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-gateway-adapter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;SimulatedPaymentGatewayAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ charge(id, amount, method): boolean&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="260" y="730" width="190" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-policy-adapter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentSecurityPolicyAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ resolveRule(method): String&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="890" width="180" height="125" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-invoice-adapter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ConsoleInvoiceAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ printPaperInvoice(id, amount): void&lt;br/&gt;+ sendElectronicInvoice(id, amount): void&lt;br/&gt;+ requestPaymentRetry(id): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="260" y="880" width="190" height="150" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-audit-adapter" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ConsoleAuditLogAdapter&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ logAction(action, details): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="50" y="1040" width="180" height="110" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-security-note" value="Security boundary note&amp;#xa;Current adapter selects a label only. Token encryption and 3D Secure are not implemented." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="260" y="1040" width="190" height="110" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-bootstrap" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;PaymentDemoApplication&lt;/b&gt;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;hr/&gt;&lt;div style=&quot;text-align:left&quot;&gt;+ main(args): void&lt;br/&gt;- createDemoInteractor(presenter): PaymentInteractor&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fontSize=14;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1150" y="580" width="400" height="130" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce1" value="gọi hàm (calls)" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-controller" target="c-input-boundary">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce2" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-input-boundary">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce3" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-presenter" target="c-output-boundary">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce4" value="present invalid amount" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-controller" target="c-output-boundary">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce5" value="tạo mới (creates)" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-controller" target="c-request">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce6" value="trả về kết quả" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-response">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce7" value="phụ thuộc vào" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-policy">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce8" value="phụ thuộc vào" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-order-port">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce9" value="phụ thuộc vào" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-gateway-port">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce10" value="phụ thuộc vào" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-invoice-port">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce11" value="phụ thuộc vào" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-audit-port">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce12" value="quy tắc nghiệp vụ" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-interactor" target="c-order">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce13" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-repo-adapter" target="c-order-port">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce14" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-gateway-adapter" target="c-gateway-port">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce15" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-policy-adapter" target="c-policy">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce16" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-invoice-adapter" target="c-invoice-port">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce17" value="triển khai (implements)" style="endArrow=block;endFill=0;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-audit-adapter" target="c-audit-port">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce18" value="hiển thị (display)" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-presenter" target="c-view">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce19" value="builds" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-presenter" target="c-vm">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce20" value="phát sự kiện (publish)" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-presenter" target="c-publisher">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce21" value="sử dụng" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-request" target="c-method">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce22" value="status type" style="endArrow=open;html=1;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-response" target="c-status">
+          
+          
+          <mxGeometry relative="1" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="ce23" value="khởi tạo &amp; kết nối (DI)" style="endArrow=open;html=1;dashed=1;fontSize=10;edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="c-bootstrap" target="c-interactor">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-legend" value="Ký hiệu: nét đứt + mũi tên mở = phụ thuộc; nét đứt + tam giác rỗng = implements / realization. Policy ở Application; adapter là mechanism ngoài." style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#444444;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="820" width="580" height="70" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="c-design" value="NGUYÊN LÝ VÀ MỞ RỘNG&amp;#xa;DDD: Order entity giữ invariant trạng thái thanh toán. SRP: UI, use case, domain và adapter tách trách nhiệm. DIP / OCP: use case gọi port; adapter có thể thay tại composition root. ISP: các port tách theo vai trò; LSP yêu cầu adapter tuân hợp đồng port. Patterns: Ports and Adapters, Presenter, Observer. Có thể thay gateway, repository, invoice, audit và policy; demo chưa thực thi bảo mật giao dịch." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fontSize=14;spacing=8;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="510" y="910" width="580" height="200" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+  
+  <diagram id="payment-sequence" name="7 - UML trình tự thanh toán">
+    
+    
+    <mxGraphModel dx="2050" dy="1180" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2050" pageHeight="1180" math="0" shadow="0">
+      
+      
+      <root>
+        
+        
+        <mxCell id="0"/>
+        
+        
+        <mxCell id="1" parent="0"/>
+        
+        
+        <mxCell id="s-title" value="UML TRÌNH TỰ - ONLINE THÀNH CÔNG (REQUEST / RESPONSE)" style="text;html=1;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="480" y="15" width="1080" height="45" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-subtitle" value="Mô tả quá trình tương tác tuần tự giữa các đối tượng khi thực hiện thanh toán trực tuyến." style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="410" y="58" width="1220" height="28" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-customer" value="Khách hàng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="35" y="105" width="145" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-view" value="PaymentSwingView" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="225" y="105" width="160" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-controller" value="PaymentSwingController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="430" y="105" width="180" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-interactor" value="PaymentInteractor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="655" y="105" width="170" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-order" value="OrderRepositoryPort&amp;#xa;+ Order" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="875" y="105" width="180" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-policy" value="PaymentSecurityPolicy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1100" y="105" width="180" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-gateway" value="PaymentGatewayPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1325" y="105" width="180" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-invoice" value="InvoicePort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1505" y="105" width="170" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-audit" value="AuditLogRepositoryPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1685" y="105" width="190" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-presenter" value="Presenter + EventPublisher / Observer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1880" y="105" width="165" height="58" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl1" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="107" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl2" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="305" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl3" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="520" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl4" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="740" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl5" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="965" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl6" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1190" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl7" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1415" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl8" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1590" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl9" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1780" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="sl10" style="dashed=1;strokeColor=#999999;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1962" y="163" width="1" height="820" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se1" value="submitPayment(orderId, amountText, method)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-customer" target="s-view">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="205" y="205"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se2" value="submitPayment(...)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-view" target="s-controller">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="405" y="255"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se3" value="parse amount; execute(PaymentRequest)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-controller" target="s-interactor">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="630" y="305"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se4" value="findById(orderId)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-order">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="850" y="355"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se5" value="Order; ensureCanBePaid()" style="endArrow=open;html=1;dashed=1;fontSize=10;" edge="1" parent="1" source="s-order" target="s-interactor">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="850" y="400"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se6" value="resolveRule(method)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-policy">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1075" y="455"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se7" value="securityRule" style="endArrow=open;html=1;dashed=1;fontSize=10;" edge="1" parent="1" source="s-policy" target="s-interactor">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1075" y="500"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se8" value="charge(orderId, amount, method)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-gateway">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1300" y="555"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se9" value="true" style="endArrow=open;html=1;dashed=1;fontSize=10;" edge="1" parent="1" source="s-gateway" target="s-interactor">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1300" y="600"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se10" value="markPaid(); save(order)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-order">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="850" y="655"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se11" value="sendElectronicInvoice(...)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-invoice">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1590" y="710"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se12" value="logAction(success)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-audit">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="1780" y="765"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se13" value="present(PaymentResponse: SUCCEEDED)" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-interactor" target="s-presenter">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="890" y="825"/>
+              
+              
+              <mxPoint x="1962" y="825"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="se14" value="display(viewModel); publish(viewModel) → observers" style="endArrow=block;html=1;fontSize=10;" edge="1" parent="1" source="s-presenter" target="s-view">
+          
+          
+          <mxGeometry relative="1" as="geometry">
+            
+            
+            <Array as="points">
+              
+              
+              <mxPoint x="320" y="890"/>
+              
+            
+            </Array>
+            
+          
+          </mxGeometry>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-note" value="BIẾN THỂ THEO CODE&amp;#xa;COD: bỏ qua gateway; in hóa đơn giấy; ghi audit; response PENDING.&amp;#xa;Online bị từ chối / lỗi: yêu cầu retry + ghi audit lỗi; response FAILED; đơn không được đánh dấu PAID.&amp;#xa;PaymentResponse mang status, orderId, amount, paymentMethod, message, invoiceAction, securityRule." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="1300" y="1010" width="690" height="140" as="geometry"/>
+          
+        
+        </mxCell>
+        
+        
+        <mxCell id="s-note-demo" value="Luồng minh họa dùng các adapter console/in-memory; không thực hiện thanh toán thật." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          
+          
+          <mxGeometry x="45" y="1050" width="720" height="70" as="geometry"/>
+          
+        
+        </mxCell>
+        
+      
+      </root>
+      
+    
+    </mxGraphModel>
+    
+  
+  </diagram>
+  
+
+</mxfile>
